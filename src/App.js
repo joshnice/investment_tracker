@@ -6,6 +6,7 @@ import PurchaseComponent from './pages/purchase';
 import SellComponent from './pages/sell';
 import { Routes,BrowserRouter, Route } from "react-router-dom";
 import { Pages } from './types/global';
+import "./App.css"
 
 class App extends Component {
   render() {
