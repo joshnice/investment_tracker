@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../types/global";
 import styled from '@emotion/styled'
+import { Button } from "../styles/button";
 
 const HomeComponent: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -14,9 +14,9 @@ const HomeComponent: FunctionComponent = () => {
         <div>
             <h3>Home</h3>
             <NavigationContainer>
-                <NavigationButton variant="outlined" onClick={() => navigateToPage(Pages.OVERVIEW)} >Overview</NavigationButton>
-                <NavigationButton variant="outlined" onClick={() => navigateToPage(Pages.PURCHASE)}>Purchase</NavigationButton>
-                <NavigationButton variant="outlined" onClick={() => navigateToPage(Pages.SELL)}>Sell</NavigationButton>
+                <Button variant="outlined" onClick={() => navigateToPage(Pages.OVERVIEW)} >Overview</Button>
+                <Button variant="outlined" onClick={() => navigateToPage(Pages.PURCHASE)}>Purchase</Button>
+                <Button variant="outlined" onClick={() => navigateToPage(Pages.SELL)}>Sell</Button>
             </NavigationContainer>
         </div>
     )
@@ -30,8 +30,6 @@ const NavigationContainer = styled.div`
     gap: 10px;
 `;
 
-const NavigationButton = styled(Button)`
-    width: 100px;
-`
+
 
 export default HomeComponent;
