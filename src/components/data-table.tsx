@@ -13,13 +13,13 @@ const DataTableComponent = <TableType extends { name: string },>(props: DataTabl
             <Table>
             <TableHead>
                 <TableRow>
-                <TableCell align="left">Calories</TableCell>
+                    {props.columns.map((column) => <TableCell align="left">{column}</TableCell>)}
                 </TableRow>
             </TableHead>
             <TableBody>
                 {props.rows.map((row) => (
                 <TableRow key={row.name}>
-                    <TableCell align="left" >Hello World</TableCell>
+                    { Object.values(row).map((dataRow) => <TableCell>{dataRow.toString()}</TableCell>) }
                 </TableRow>
                 ))}
             </TableBody>
