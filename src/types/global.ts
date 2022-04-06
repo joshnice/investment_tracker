@@ -4,3 +4,5 @@ export enum Pages {
     PURCHASE = "PURCHASE",
     SELL = "SELL",
 }
+
+export type InvestmentType = "Stock" | "Crypto";
