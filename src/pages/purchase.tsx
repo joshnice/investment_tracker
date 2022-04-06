@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import React, { FunctionComponent, useState } from "react";
 import DataTableComponent from "../components/data-table";
 import HomeButton from "../components/home-button";
@@ -13,23 +14,31 @@ export interface PurchaseTableType {
     source: string;
     class: string;
     amount: number;
-    priceOfStockPurchase: number;
-    priceOfStockNow: number;
+    paid: number;
+    value: number;
 }
+
+const PurchaseColumnNames = ["Name", "Type", "Source", "Class", "Date", "Amount", "Paid", "Value"];
 
 const PurchaseComponent: FunctionComponent = () => {
     
     const [investmentPurchases, setInvestmentPurchases] = useState(mockPurchases);
 
     return (
-        <>
+        <PurchaseContainer>
             <HomeButtonContainer>
                 <HomeButton />
             </HomeButtonContainer>
             <h2 style={{ margin: "0px" }}>Investment Purchase</h2>
-            <DataTableComponent<PurchaseTableType> columns={Object.keys(investmentPurchases[0])} rows={investmentPurchases} />
-        </>
+            <DataTableComponent<PurchaseTableType> columns={PurchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
+        </PurchaseContainer>
     )
 }
+
+const PurchaseContainer = styled.div`
+    .data-table-container {
+        margin: 20px 0px;
+    }
+`;
 
 export default PurchaseComponent;

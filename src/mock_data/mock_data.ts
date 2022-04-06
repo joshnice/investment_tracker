@@ -6,8 +6,8 @@ export const mockPurchases: PurchaseTableType[] = [{
         source: "Freetrade",
         class: "Low",
         date: new Date(),
-        priceOfStockNow: 100,
-        priceOfStockPurchase: 50,
+        paid: 50,
+        value: 100,
         amount: 10,
     },
     {
@@ -16,8 +16,8 @@ export const mockPurchases: PurchaseTableType[] = [{
         source: "Freetrade",
         class: "Low",
         date: new Date(),
-        priceOfStockNow: 500,
-        priceOfStockPurchase: 600,
+        paid: 600,
+        value: 500,
         amount: 2,
     }
 ]
