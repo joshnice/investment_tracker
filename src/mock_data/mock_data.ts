@@ -9,6 +9,7 @@ export const mockPurchases: PurchaseTableType[] = [{
         paid: 50,
         value: 100,
         amount: 10,
+        stockCode: "AAPL",
     },
     {
         name: "Netflix",
@@ -19,5 +20,6 @@ export const mockPurchases: PurchaseTableType[] = [{
         paid: 600,
         value: 500,
         amount: 2,
+        stockCode: "NFLX",
     }
 ]
