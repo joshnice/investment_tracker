@@ -38,6 +38,12 @@ const PurchaseComponent: FunctionComponent = () => {
 const PurchaseContainer = styled.div`
     .data-table-container {
         margin: 20px 0px;
+        color: white !important;
+        background-color: #15202B;
+        border: 1px #d5d8dc solid;
+        .MuiTableCell-root {
+            color: #d5d8dc !important;
+        }
     }
 `;
 
