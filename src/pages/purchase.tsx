@@ -52,7 +52,7 @@ const PurchaseComponent: FunctionComponent = () => {
                 <HomeButton />
             </HomeButtonContainer>
             <h2 style={{ margin: "0px" }}>Investment Purchase</h2>
-            <DataTableComponent<PurchaseTableType> columns={PurchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
+            <DataTableComponent<PurchaseTableType> columns={purchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
         </PurchaseContainer>
     )
 }
