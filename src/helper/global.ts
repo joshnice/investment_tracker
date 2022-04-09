@@ -5,3 +5,5 @@ export function isValidDate(date: any) {
 export function getDateString(date: Date) {
     return date.toLocaleDateString("en-GB");
 }
+
+// need function to take the column definitions and use the id from them to get the value out of the row definition

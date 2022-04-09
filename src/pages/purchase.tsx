@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { getStockPrices } from "../APIs/stock";
-import DataTableComponent from "../components/data-table";
+import DataTableComponent, { ColumnType } from "../components/data-table";
 import HomeButton from "../components/home-button";
 import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-contanier";
@@ -20,7 +20,16 @@ export interface PurchaseTableType {
     stockCode: string;
 }
 
-const PurchaseColumnNames = ["Name", "Type", "Source", "Class", "Date", "Amount", "Paid", "Value"];
+const purchaseColumnNames: ColumnType[] = [
+    { id: "name", columnHeader: "Name" }, 
+    { id: "type", columnHeader: "Type" },
+    { id: "source", columnHeader: "Source" },
+    { id: "class", columnHeader: "Class" },
+    { id: "date", columnHeader: "Date" }, 
+    { id: "amount", columnHeader: "Amount" },
+    { id: "paid", columnHeader: "Paid" },
+    { id: "value", columnHeader: "Value" },
+];
 
 const PurchaseComponent: FunctionComponent = () => {
 
@@ -37,7 +46,6 @@ const PurchaseComponent: FunctionComponent = () => {
 
     }, []);
     
-
     return (
         <PurchaseContainer>
             <HomeButtonContainer>

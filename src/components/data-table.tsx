@@ -1,8 +1,13 @@
 import { CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { getDateString, isValidDate } from "../helper/global";
 
+export interface ColumnType {
+    id: string;
+    columnHeader: string;
+}
+
 interface DataTableProps<TableType extends {name: string}> {
-    columns: string[];
+    columns: ColumnType[];
     rows: TableType[];
     containerClassName: string;
 }
@@ -12,7 +17,7 @@ const DataTableComponent = <TableType extends { name: string },>(props: DataTabl
         <Table>
         <TableHead>
             <TableRow>
-                { props.columns.map((column) => <TableCell key={column} align="center">{column}</TableCell>) }
+                { props.columns.map((column) => <TableCell key={column.id} align="center">{column.columnHeader}</TableCell>) }
             </TableRow>
         </TableHead>
         <TableBody>
