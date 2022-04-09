@@ -16,7 +16,7 @@ export interface PurchaseTableType {
     class: string;
     amount: number;
     paid: number;
-    value: number;
+    value: number | undefined;
     stockCode: string;
 }
 

@@ -7,7 +7,7 @@ export const mockPurchases: PurchaseTableType[] = [{
         class: "Low",
         date: new Date(),
         paid: 50,
-        value: 100,
+        value: undefined,
         amount: 10,
         stockCode: "AAPL",
     },
@@ -18,7 +18,7 @@ export const mockPurchases: PurchaseTableType[] = [{
         class: "Low",
         date: new Date(),
         paid: 600,
-        value: 500,
+        value: undefined,
         amount: 2,
         stockCode: "NFLX",
     }

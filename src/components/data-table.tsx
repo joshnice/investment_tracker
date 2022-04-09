@@ -1,4 +1,4 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { getDateString, isValidDate } from "../helper/global";
 
 interface DataTableProps<TableType extends {name: string}> {
@@ -18,7 +18,13 @@ const DataTableComponent = <TableType extends { name: string },>(props: DataTabl
         <TableBody>
             {props.rows.map((row, index) => (
             <TableRow key={row.name}>
-                { Object.values(row).map((dataRow) => <TableCell key={`${dataRow.toString()}_${index}`} align="center">{ isValidDate(dataRow) ? getDateString(dataRow as unknown as Date) : dataRow }</TableCell>) }
+                { Object.values(row).map((dataRow) => dataRow ?
+                    <TableCell key={`${dataRow.toString()}_${index}`} align="center">{ isValidDate(dataRow) ? getDateString(dataRow as unknown as Date) : dataRow }</TableCell>
+                    :
+                    <TableCell key={`loading_${index}`}> 
+                        <CircularProgress size={40} />
+                    </TableCell>
+                    )}
             </TableRow>
             ))}
         </TableBody>
