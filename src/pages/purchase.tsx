@@ -13,7 +13,7 @@ export interface PurchaseTableType {
     date: Date;
     type: InvestmentType;
     source: string;
-    class: string;
+    marketCap: "low" | "medium" | "high"; // Want to work this out dynamically using either an API call or calcing it ourselves
     amount: number;
     paid: number;
     value: number | undefined;
