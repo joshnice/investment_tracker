@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { getStockPrices } from "../APIs/stock";
-import DataTableComponent, { ColumnType } from "../components/data-table";
+import DataTableComponent from "../components/data-table";
 import HomeButton from "../components/home-button";
 import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-contanier";
+import { ColumnType } from "../types/data-table-types";
 import { InvestmentType } from "../types/global";
 
 // Remove export once mock data is removed

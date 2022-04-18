@@ -1,10 +1,6 @@
 import { CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { getDateString, isValidDate } from "../helper/global";
-
-export interface ColumnType {
-    id: string;
-    columnHeader: string;
-}
+import { ColumnType } from "../types/data-table-types";
 
 interface DataTableProps<TableType extends {name: string}> {
     columns: ColumnType[];
