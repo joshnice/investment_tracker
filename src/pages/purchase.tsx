@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { getCryptoPrices } from "../APIs/crypto";
 import { getStockPrices } from "../APIs/stock";
 import DataTableComponent from "../components/data-table";
 import HomeButton from "../components/home-button";
@@ -29,9 +30,11 @@ const PurchaseComponent: FunctionComponent = () => {
 
     useEffect(() => {
         const getStockPricesAsync = async () => {
-            const prices = await getStockPrices(mockPurchases.map(({ code }) => code ));
-            const updatedInvestmentPurchases = mockPurchases.filter(({ type }) => type === "Stock" ).map(( investment ) => ({...investment, value: (prices.find(({ code }) => code === investment.code )?.price || 0)}))
-            const mappedTableValues = columnDefinitionToValue(purchaseColumnNames, updatedInvestmentPurchases);
+            const stockPrices = await getStockPrices(mockPurchases.filter(({ type }) => type === "Stock").map(({ code }) => code ));
+            const cryptoPrices = await getCryptoPrices(mockPurchases.filter(({ type }) => type === "Crypto").map(({ code }) => code));
+            const stockInvestments = mockPurchases.filter(({ type }) => type === "Stock" ).map(( investment ) => ({...investment, value: (stockPrices.find(({ code }) => code === investment.code )?.price || 0)}))
+            const cryptoInvestments = mockPurchases.filter(({ type }) => type === "Crypto" ).map(( investment ) => ({...investment, value: (cryptoPrices.find(({ code }) => code === investment.code )?.price || 0)}))
+            const mappedTableValues = columnDefinitionToValue(purchaseColumnNames, [...stockInvestments, ...cryptoInvestments ]);
             setInvestmentPurchases(mappedTableValues);
         };
 

@@ -1,6 +1,7 @@
 import { PurchaseType } from "../types/global";
 
-export const mockPurchases: PurchaseType[] = [{
+export const mockPurchases: PurchaseType[] = [
+    {
         name: "Apple",
         type: "Stock",
         source: "Freetrade",
@@ -21,5 +22,16 @@ export const mockPurchases: PurchaseType[] = [{
         value: undefined,
         amount: 2,
         code: "NFLX",
+    },
+    {
+        name: "Bitcoin",
+        type: "Crypto",
+        source: "Gemini",
+        class: "BTC",
+        date: new Date(),
+        paid: 200,
+        value: undefined,
+        amount: 0.1,
+        code: "BTC",
     }
 ]
