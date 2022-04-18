@@ -12,7 +12,7 @@ export interface PurchaseType {
     date: Date;
     type: InvestmentType;
     source: string;
-    class: "micro" | "low" | "medium" | "high" | "ALT" | "STABLE" | "BTC" | "ETH";
+    class: "Micro" | "Low" | "Medium" | "High" | "ALT" | "STABLE" | "BTC" | "ETH";
     amount: number;
     paid: number;
     value: number | undefined;
