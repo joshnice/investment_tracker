@@ -7,7 +7,7 @@ import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-contanier";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
-import { PurchaseType } from "../types/global";
+import { InvestmentType } from "../types/global";
 
 // Remove export once mock data is removed
 
@@ -30,7 +30,7 @@ const PurchaseComponent: FunctionComponent = () => {
     useEffect(() => {
         const getStockPricesAsync = async () => {
             const prices = await getStockPrices(mockPurchases.map(({ code }) => code ));
-            const updatedInvestmentPurchases = mockPurchases.map(( investment ) => ({...investment, value: (prices.find(({ code }) => code === investment.code )?.price || 0)}))
+            const updatedInvestmentPurchases = mockPurchases.filter(({ type }) => type === "Stock" ).map(( investment ) => ({...investment, value: (prices.find(({ code }) => code === investment.code )?.price || 0)}))
             const mappedTableValues = columnDefinitionToValue(purchaseColumnNames, updatedInvestmentPurchases);
             setInvestmentPurchases(mappedTableValues);
         };
