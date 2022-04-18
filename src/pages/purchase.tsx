@@ -6,9 +6,8 @@ import DataTableComponent from "../components/data-table";
 import HomeButton from "../components/home-button";
 import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
-import { HomeButtonContainer } from "../styles/home-button-contanier";
+import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
-import { InvestmentType } from "../types/global";
 
 // Remove export once mock data is removed
 
