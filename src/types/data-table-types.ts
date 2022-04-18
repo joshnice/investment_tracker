@@ -1,4 +1,8 @@
+import { InvestmentType, PurchaseType } from "./global";
+
 export interface ColumnType {
-    id: string;
+    id: keyof PurchaseType;
     columnHeader: string;
 }
+
+export type PurchaseTableType = Omit<PurchaseType, "code">;

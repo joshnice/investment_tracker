@@ -1,25 +1,25 @@
-import { PurchaseTableType } from "../pages/purchase";
+import { PurchaseType } from "../types/global";
 
-export const mockPurchases: PurchaseTableType[] = [{
+export const mockPurchases: PurchaseType[] = [{
         name: "Apple",
         type: "Stock",
         source: "Freetrade",
-        marketCap: "high",
+        class: "high",
         date: new Date(),
         paid: 50,
         value: undefined,
         amount: 10,
-        stockCode: "AAPL",
+        code: "AAPL",
     },
     {
         name: "Netflix",
         type: "Stock",
         source: "Freetrade",
-        marketCap: "high",
+        class: "high",
         date: new Date(),
         paid: 600,
         value: undefined,
         amount: 2,
-        stockCode: "NFLX",
+        code: "NFLX",
     }
 ]

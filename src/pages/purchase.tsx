@@ -3,23 +3,14 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { getStockPrices } from "../APIs/stock";
 import DataTableComponent from "../components/data-table";
 import HomeButton from "../components/home-button";
+import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-contanier";
-import { ColumnType } from "../types/data-table-types";
-import { InvestmentType } from "../types/global";
+import { ColumnType, PurchaseTableType } from "../types/data-table-types";
+import { PurchaseType } from "../types/global";
 
 // Remove export once mock data is removed
-export interface PurchaseTableType {
-    name: string;
-    date: Date;
-    type: InvestmentType;
-    source: string;
-    marketCap: "micro" | "low" | "medium" | "high"; // Want to work this out dynamically using either an API call or calcing it ourselves
-    amount: number;
-    paid: number;
-    value: number | undefined;
-    stockCode: string;
-}
+
 
 const purchaseColumnNames: ColumnType[] = [
     { id: "name", columnHeader: "Name" }, 
@@ -34,13 +25,14 @@ const purchaseColumnNames: ColumnType[] = [
 
 const PurchaseComponent: FunctionComponent = () => {
 
-    const [investmentPurchases, setInvestmentPurchases] = useState(mockPurchases);
+    const [investmentPurchases, setInvestmentPurchases] = useState<PurchaseTableType[]>([]);
 
     useEffect(() => {
         const getStockPricesAsync = async () => {
-            const prices = await getStockPrices(investmentPurchases.map(({ stockCode }) => stockCode ));
-            const updatedInvestmentPurchases = investmentPurchases.map(( investment ) => ({...investment, value: (prices.find(({ code }) => code === investment.stockCode )?.price || 0)}))
-            setInvestmentPurchases(updatedInvestmentPurchases);
+            const prices = await getStockPrices(mockPurchases.map(({ code }) => code ));
+            const updatedInvestmentPurchases = mockPurchases.map(( investment ) => ({...investment, value: (prices.find(({ code }) => code === investment.code )?.price || 0)}))
+            const mappedTableValues = columnDefinitionToValue(purchaseColumnNames, updatedInvestmentPurchases);
+            setInvestmentPurchases(mappedTableValues);
         };
 
         getStockPricesAsync();
