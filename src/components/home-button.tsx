@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../styles/button";
+import Button  from "./button";
 
 const HomeButtonCompoent: FunctionComponent = () => { 
     const navigate = useNavigate();
 
     return (
-        <Button variant="outlined" onClick={() => navigate("/")}>
+        <Button onClick={() => navigate("/")}>
             Home
         </Button>
     );

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../types/global";
 import styled from '@emotion/styled'
-import { Button } from "../styles/button";
+import Button  from "../components/button";
 
 const HomeComponent: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -14,9 +14,9 @@ const HomeComponent: FunctionComponent = () => {
         <div>
             <h3>Home</h3>
             <NavigationContainer>
-                <Button variant="outlined" onClick={() => navigateToPage(Pages.OVERVIEW)} >Overview</Button>
-                <Button variant="outlined" onClick={() => navigateToPage(Pages.PURCHASE)}>Purchase</Button>
-                <Button variant="outlined" onClick={() => navigateToPage(Pages.SELL)}>Sell</Button>
+                <Button onClick={() => navigateToPage(Pages.OVERVIEW)} >Overview</Button>
+                <Button onClick={() => navigateToPage(Pages.PURCHASE)}>Purchase</Button>
+                <Button onClick={() => navigateToPage(Pages.SELL)}>Sell</Button>
             </NavigationContainer>
         </div>
     )

@@ -1,6 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Modal } from "@mui/material";
 import { FunctionComponent } from "react";
-import { Button } from "../styles/button";
+import Button from "./button";
 
 interface FormProps {
     open: boolean;

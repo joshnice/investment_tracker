@@ -7,7 +7,7 @@ import FormComponent from "../components/form-component";
 import HomeButton from "../components/home-button";
 import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
-import { Button } from "../styles/button";
+import Button  from "../components/button";
 import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
 
