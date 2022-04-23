@@ -9,8 +9,18 @@ import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
 
-// Remove export once mock data is removed
+/*
 
+Purchase todo:
+
+Add purchase 
+
+Calculate market cap - Stock only
+Calculate class - Crypto
+Calculate worth amounts of shares owned x value
+Calculate profit/loss
+
+*/
 
 const purchaseColumnNames: ColumnType[] = [
     { id: "name", columnHeader: "Name" }, 
