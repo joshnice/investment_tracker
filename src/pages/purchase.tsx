@@ -3,9 +3,11 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { getCryptoPrices } from "../APIs/crypto";
 import { getStockPrices } from "../APIs/stock";
 import DataTableComponent from "../components/data-table";
+import FormComponent from "../components/form-component";
 import HomeButton from "../components/home-button";
 import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
+import { Button } from "../styles/button";
 import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
 
@@ -13,12 +15,15 @@ import { ColumnType, PurchaseTableType } from "../types/data-table-types";
 
 Purchase todo:
 
-Add purchase 
+Add purchase
+Delete purchase 
+Edit purchase
 
 Calculate market cap - Stock only
 Calculate class - Crypto
 Calculate worth amounts of shares owned x value
 Calculate profit/loss
+Auto refresh every 10 seconds
 
 */
 
@@ -35,7 +40,11 @@ const purchaseColumnNames: ColumnType[] = [
 
 const PurchaseComponent: FunctionComponent = () => {
 
+    // Component State
     const [investmentPurchases, setInvestmentPurchases] = useState<PurchaseTableType[]>([]);
+
+    const [addPurchaseFrom, setAddPurchaseFrom] = useState<boolean>(false);
+
 
     useEffect(() => {
         const getStockPricesAsync = async () => {
@@ -58,6 +67,8 @@ const PurchaseComponent: FunctionComponent = () => {
             </HomeButtonContainer>
             <h2 style={{ margin: "0px" }}>Investment Purchase</h2>
             <DataTableComponent<PurchaseTableType> columns={purchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
+            <Button onClick={() => setAddPurchaseFrom(true)}>Add Purchase</Button>
+            <FormComponent open={addPurchaseFrom}/>
         </PurchaseContainer>
     )
 }
