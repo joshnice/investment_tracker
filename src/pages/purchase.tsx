@@ -43,7 +43,14 @@ const PurchaseComponent: FunctionComponent = () => {
     // Component State
     const [investmentPurchases, setInvestmentPurchases] = useState<PurchaseTableType[]>([]);
 
-    const [addPurchaseFrom, setAddPurchaseFrom] = useState<boolean>(false);
+    const [showPurchaseForm, setShowPurchaseForm] = useState<boolean>(false);
+
+    // Handlers
+
+    const handleSavePurchase = () => {
+        // Save the new purchase
+        setShowPurchaseForm(false);
+    }
 
 
     useEffect(() => {
@@ -67,8 +74,8 @@ const PurchaseComponent: FunctionComponent = () => {
             </HomeButtonContainer>
             <h2 style={{ margin: "0px" }}>Investment Purchase</h2>
             <DataTableComponent<PurchaseTableType> columns={purchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
-            <Button onClick={() => setAddPurchaseFrom(true)}>Add Purchase</Button>
-            <FormComponent open={addPurchaseFrom}/>
+            <Button onClick={() => setShowPurchaseForm(true)}>Add Purchase</Button>
+            <FormComponent open={showPurchaseForm} submit={handleSavePurchase} cancel={() => setShowPurchaseForm(false)}/>
         </PurchaseContainer>
     )
 }
