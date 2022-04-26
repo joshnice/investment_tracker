@@ -1,6 +1,6 @@
+import { Button } from "@mui/material";
 import { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
-import Button  from "./button";
 
 const HomeButtonCompoent: FunctionComponent = () => { 
     const navigate = useNavigate();

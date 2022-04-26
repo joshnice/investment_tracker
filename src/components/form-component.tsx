@@ -1,6 +1,5 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Modal } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Modal } from "@mui/material";
 import { FunctionComponent } from "react";
-import Button from "./button";
 
 interface FormProps {
     open: boolean;
@@ -15,7 +14,7 @@ const FormComponent: FunctionComponent<FormProps> = ({ open, submit, disableSubm
         <DialogContent>We need some content</DialogContent>
         <DialogActions>
             <Button onClick={cancel}>Cancel</Button>
-            <Button onClick={submit} disable={disableSubmit}>Save</Button>
+            <Button onClick={submit} disabled={disableSubmit}>Save</Button>
         </DialogActions>        
     </Dialog>
 )

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { getCryptoPrices } from "../APIs/crypto";
 import { getStockPrices } from "../APIs/stock";
@@ -7,7 +8,6 @@ import FormComponent from "../components/form-component";
 import HomeButton from "../components/home-button";
 import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
-import Button  from "../components/button";
 import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
 
@@ -45,7 +45,7 @@ const PurchaseComponent: FunctionComponent = () => {
 
     const [showPurchaseForm, setShowPurchaseForm] = useState<boolean>(false);
 
-    const [purchaseFormDisableSubmit, setPurchaseFormDisableSubmit ] = useState<boolean>(false);
+    const [purchaseFormDisableSubmit, setPurchaseFormDisableSubmit] = useState<boolean>(false);
 
     // Handlers
 

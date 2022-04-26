@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../types/global";
 import styled from '@emotion/styled'
-import Button  from "../components/button";
+import { Button } from "@mui/material";
 
 const HomeComponent: FunctionComponent = () => {
     const navigate = useNavigate();
