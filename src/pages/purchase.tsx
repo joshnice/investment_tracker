@@ -5,7 +5,7 @@ import { getCryptoPrices } from "../APIs/crypto";
 import { getStockPrices } from "../APIs/stock";
 import AddPurchaseComponent from "../components/add-purchase";
 import DataTableComponent from "../components/data-table";
-import FormComponent from "../components/form-component";
+import FormComponent from "../components/forms/form-component";
 import HomeButton from "../components/home-button";
 import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
