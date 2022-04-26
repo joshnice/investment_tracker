@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { getCryptoPrices } from "../APIs/crypto";
 import { getStockPrices } from "../APIs/stock";
+import AddPurchaseComponent from "../components/add-purchase";
 import DataTableComponent from "../components/data-table";
 import FormComponent from "../components/form-component";
 import HomeButton from "../components/home-button";
@@ -45,7 +46,7 @@ const PurchaseComponent: FunctionComponent = () => {
 
     const [showPurchaseForm, setShowPurchaseForm] = useState<boolean>(false);
 
-    const [purchaseFormDisableSubmit, setPurchaseFormDisableSubmit] = useState<boolean>(false);
+    const [purchaseFormDisableSubmit, setPurchaseFormDisableSubmit] = useState<boolean>(true);
 
     // Handlers
 
@@ -77,7 +78,15 @@ const PurchaseComponent: FunctionComponent = () => {
             <h2 style={{ margin: "0px" }}>Investment Purchase</h2>
             <DataTableComponent<PurchaseTableType> columns={purchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
             <Button onClick={() => setShowPurchaseForm(true)}>Add Purchase</Button>
-            <FormComponent open={showPurchaseForm} submit={handleSavePurchase} cancel={() => setShowPurchaseForm(false)} disableSubmit={purchaseFormDisableSubmit}/>
+            <FormComponent 
+                title="Add Investment"
+                open={showPurchaseForm}
+                submit={handleSavePurchase}
+                cancel={() => setShowPurchaseForm(false)}
+                disableSubmit={purchaseFormDisableSubmit}
+            >
+                <AddPurchaseComponent />
+            </FormComponent>
         </PurchaseContainer>
     )
 }
