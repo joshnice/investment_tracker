@@ -9,7 +9,7 @@ interface FormProps {
 }
 
 const FormComponent: FunctionComponent<FormProps> = ({ open, submit, cancel }) => (
-    <Dialog open={open} PaperProps={{ sx: { width: "50vw", maxHeight: "80vh", minHeight: "80vh" } }} scroll="paper">
+    <Dialog open={open} PaperProps={{ sx: { width: "50vw", maxHeight: "80vh", minHeight: "80vh" } }} scroll="paper" onBackdropClick={cancel}>
         <DialogTitle>Title</DialogTitle>
         <DialogContent>We need some content</DialogContent>
         <DialogActions>
