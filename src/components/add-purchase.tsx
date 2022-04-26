@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { FunctionComponent, useEffect, useMemo, useState } from "react";
-import { FormValidation } from "../types/forms";
+import { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
+import { FormValue } from "../types/forms";
 import TextInputComponent from "./forms/text-input";
 
 interface AddPurchaseProps {
@@ -23,23 +23,25 @@ Paid - Input (number)
 
 const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
 
-    // State
-    const [name, setName] = useState<string>("");
+    // State Values
+    const [name, setName] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
 
-    // Validation 
-    const nameValidation: FormValidation = useMemo(() => {
-        const valid = name.length < 3;
-        return { valid, message: valid ? "Name has to be longer than 3 letters" : "" };
-    }, [name]);
- 
+    // Handlers
+    const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        const { value } = event.target;
+        const valid = Boolean(value && value.length < 3);
+        const message = valid ? "Name has to be longer than 3 letters" : "";
+        setName({ value, valid, message, touched: true });
+    };
+
     return (
         <AddPurchaseContainer>
             <TextInputComponent 
                 label="Investment Name" 
-                value={name}
-                onChange={({target}) => setName(target.value)} 
-                error={nameValidation.valid}
-                errorMessage={nameValidation.message}
+                value={name.value}
+                onChange={handleNameChange} 
+                error={name.touched && name.valid}
+                errorMessage={name.message}
             />
         </AddPurchaseContainer>
     );
