@@ -45,6 +45,8 @@ const PurchaseComponent: FunctionComponent = () => {
 
     const [showPurchaseForm, setShowPurchaseForm] = useState<boolean>(false);
 
+    const [purchaseFormDisableSubmit, setPurchaseFormDisableSubmit ] = useState<boolean>(false);
+
     // Handlers
 
     const handleSavePurchase = () => {
@@ -75,7 +77,7 @@ const PurchaseComponent: FunctionComponent = () => {
             <h2 style={{ margin: "0px" }}>Investment Purchase</h2>
             <DataTableComponent<PurchaseTableType> columns={purchaseColumnNames} rows={investmentPurchases} containerClassName="data-table-container"/>
             <Button onClick={() => setShowPurchaseForm(true)}>Add Purchase</Button>
-            <FormComponent open={showPurchaseForm} submit={handleSavePurchase} cancel={() => setShowPurchaseForm(false)}/>
+            <FormComponent open={showPurchaseForm} submit={handleSavePurchase} cancel={() => setShowPurchaseForm(false)} disableSubmit={purchaseFormDisableSubmit}/>
         </PurchaseContainer>
     )
 }
