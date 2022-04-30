@@ -48,14 +48,16 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
             <TextInputComponent 
                 label="Name" 
                 value={name.value}
-                onChange={handleNameChange} 
+                onChange={handleNameChange}
+                type="text"
                 error={name.touched && name.valid}
                 errorMessage={name.message}
             />
             <TextInputComponent 
                 label="Code" 
                 value={code.value}
-                onChange={handleCodeChange} 
+                onChange={handleCodeChange}
+                type="text"
                 error={code.touched && code.valid}
                 errorMessage={code.message}
             />

@@ -7,16 +7,18 @@ interface TextInputProps {
     value: string;
     error: boolean;
     errorMessage: string;
+    type: "number" | "text";
     onChange: (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 }
 
-const TextInputComponent: FunctionComponent<TextInputProps> = ({ label, value, error, errorMessage, onChange }) => {
+const TextInputComponent: FunctionComponent<TextInputProps> = ({ label, value, error, errorMessage, type, onChange }) => {
     return <TextInputContainer>
         <TextField 
             label={label} 
             variant="outlined" 
             size="small" 
             onChange={onChange}
+            type={type}
             value={value}
             error={error}
             fullWidth
