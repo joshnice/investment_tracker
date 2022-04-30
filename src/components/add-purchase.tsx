@@ -31,8 +31,8 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
     // Handlers
     const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { value } = event.target;
-        const valid = Boolean(value && value.length < 3);
-        const message = valid ? "Name has to be longer than 3 letters" : "";
+        const valid = value != "" && value.length > 3;
+        const message = valid ? "": "Name has to be longer than 3 letters";
         setName({ value, valid, message, touched: true });
     };
 
@@ -50,7 +50,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
                 value={name.value}
                 onChange={handleNameChange}
                 type="text"
-                error={name.touched && name.valid}
+                error={name.touched && !name.valid}
                 errorMessage={name.message}
             />
             <TextInputComponent 
