@@ -29,6 +29,5 @@ async function getCrypto(code: string) {
 
 export async function isCryptoCodeValid(code: string) {
     const isValid = await getCrypto(code);
-    console.log("isValid.length", isValid.length);
     return isValid.length > 0;
 }
