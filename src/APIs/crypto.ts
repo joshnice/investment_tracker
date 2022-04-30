@@ -14,10 +14,21 @@ export async function getCryptoPrices(cryptoCodes: string[]) {
 
 }
 
-export async function getCryptoPrice(code: string) {
+async function getCryptoPrice(code: string) {
+    const cryptoData = await getCrypto(code);
+    return Number(parseFloat(cryptoData[0].price_usd).toFixed(2));
+}
+
+async function getCrypto(code: string) {
     return fetch(`https://rest.coinapi.io/v1/assets/${code}`, { headers: { "X-CoinAPI-Key": cryptoAPIKey } })
     .then(async (res) => {
         const response = await res.json();
-        return Number(parseFloat(response[0].price_usd).toFixed(2));
+        return response;
     });
+}
+
+export async function isCryptoCodeValid(code: string) {
+    const isValid = await getCrypto(code);
+    console.log("isValid.length", isValid.length);
+    return isValid.length > 0;
 }
