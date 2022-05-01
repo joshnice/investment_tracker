@@ -32,7 +32,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
 
     const [type, setType] = useState<InvestmentType>("Stock");
 
-    const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
+    const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false, loading: false });
 
     // Handlers
     const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -52,7 +52,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
             const valid = type === "Stock" ? await isStockValid(code) : await isCryptoCodeValid(code);
             console.log("valid", valid);
             const message = valid ? "": `Code is not a valid ${type.toLowerCase()} `;
-            setCode({ value: code, valid, message, touched: true });
+            setCode({ value: code, valid, message, touched: true, loading: false });
 
         }, 1000));
     }
@@ -60,10 +60,11 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
     const handleCodeChange = async (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { value } = event.target;
         checkCodeValid(value);
-        setCode({ value, valid: false, message: code.message, touched: true });
+        setCode({ value, valid: false, message: "Checking...", touched: true, loading: true });
     };
 
     const handleTypeChange = (type: InvestmentType) => {
+        setCode({ ...code, message: "Checking...", loading: true });
         setType(type);
         checkCodeValid(code.value);
     }
@@ -92,6 +93,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
                 value={code.value}
                 onChange={handleCodeChange}
                 type="text"
+                loading={code.loading}
                 error={code.touched && !code.valid}
                 errorMessage={code.message}
             />

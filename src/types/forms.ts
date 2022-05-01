@@ -3,4 +3,5 @@ export interface FormValue<ValueType> {
     valid: boolean;
     message: string;
     touched: boolean;
+    loading?: boolean;
 }
