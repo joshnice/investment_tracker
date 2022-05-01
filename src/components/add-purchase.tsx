@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-import { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, FunctionComponent, useState } from "react";
+import { isCryptoCodeValid } from "../APIs/crypto";
+import { isStockValid } from "../APIs/stock";
 import { FormValue } from "../types/forms";
 import { InvestmentType } from "../types/global";
 import RadioButtonsComponent from "./forms/radio-buttons";
@@ -40,12 +42,31 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
         setName({ value, valid, message, touched: true });
     };
 
-    const handleCodeChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const [checkValidCode, setCheckValidCode] = useState<NodeJS.Timeout | null>(null);
+
+    const checkCodeValid = (code: string) => {
+        if (checkValidCode != null) {
+            clearTimeout(checkValidCode);
+        }
+        setCheckValidCode(setTimeout(async () => {
+            const valid = type === "Stock" ? await isStockValid(code) : await isCryptoCodeValid(code);
+            console.log("valid", valid);
+            const message = valid ? "": `Code is not a valid ${type.toLowerCase()} `;
+            setCode({ value: code, valid, message, touched: true });
+
+        }, 1000));
+    }
+
+    const handleCodeChange = async (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { value } = event.target;
-        const valid = Boolean(value && value.length < 3);
-        const message = valid ? "Code has to be longer than 3 letters" : "";
-        setCode({ value, valid, message, touched: true });
+        checkCodeValid(value);
+        setCode({ value, valid: false, message: code.message, touched: true });
     };
+
+    const handleTypeChange = (type: InvestmentType) => {
+        setType(type);
+        checkCodeValid(code.value);
+    }
 
     return (
         <AddPurchaseContainer>
@@ -59,11 +80,11 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
             />
             <RadioButtonsComponent<InvestmentType> 
                 title="Type"
-                onChange={(event) => setType(event.target.value as InvestmentType)}
+                onChange={(event) => handleTypeChange(event.target.value as InvestmentType)}
                 selectedValue={type}
                 values={[
                     { value:"Stock", name:"Stock" },
-                    { value:"Crypto", name: "Crypto"},   
+                    { value:"Cryptocurrency", name: "Crypto"},   
                 ]} 
             />
             <TextInputComponent 
