@@ -15,7 +15,7 @@ interface SelectButtonProps {
 
 const SelectComponent: FunctionComponent<SelectButtonProps> = ({ title, values, selectedValue, onChange }) => (
     <Box>
-        <FormControl fullWidth>
+        <FormControl size="small" fullWidth>
             <InputLabel id="demo-simple-select-label">{title}</InputLabel>
             <Select
                 value={selectedValue}

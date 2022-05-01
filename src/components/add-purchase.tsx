@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
+import { SelectChangeEvent } from "@mui/material";
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import { isCryptoCodeValid } from "../APIs/crypto";
 import { isStockValid } from "../APIs/stock";
 import { FormValue } from "../types/forms";
 import { InvestmentType } from "../types/global";
 import RadioButtonsComponent from "./forms/radio-buttons";
+import SelectComponent from "./forms/select-component";
 import TextInputComponent from "./forms/text-input";
 
 interface AddPurchaseProps {
@@ -33,6 +35,8 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
     const [type, setType] = useState<InvestmentType>("Stock");
 
     const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false, loading: false });
+
+    const [source, setSource] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
 
     // Handlers
     const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -64,9 +68,16 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
     };
 
     const handleTypeChange = (type: InvestmentType) => {
-        setCode({ ...code, message: "Checking...", loading: true });
+        if (code.touched) {
+            setCode({ ...code, message: "Checking...", loading: true });
+            checkCodeValid(code.value);
+        } 
         setType(type);
-        checkCodeValid(code.value);
+    }
+
+    const handleSourceChange = (event: SelectChangeEvent<string | number>) => {
+        const value = event.target.value as string;
+        setSource({ value: value, valid: value != "", touched: false, message: "" })
     }
 
     return (
@@ -96,6 +107,16 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
                 loading={code.loading}
                 error={code.touched && !code.valid}
                 errorMessage={code.message}
+            />
+            <SelectComponent
+                title="Source"
+                selectedValue={source.value}                
+                values={[
+                    { value:"Stock", name:"FreeTrade" },
+                    { value:"Crypto.com", name: "Crypto.com"},
+                    { value:"Gemini", name: "Gemini"},
+                ]} 
+                onChange={handleSourceChange}
             />
         </AddPurchaseContainer>
     );
