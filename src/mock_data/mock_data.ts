@@ -25,7 +25,7 @@ export const mockPurchases: PurchaseType[] = [
     },
     {
         name: "Bitcoin",
-        type: "Crypto",
+        type: "Cryptocurrency",
         source: "Gemini",
         class: "BTC",
         date: new Date(),

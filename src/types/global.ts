@@ -5,7 +5,7 @@ export enum Pages {
     SELL = "SELL",
 }
 
-export type InvestmentType = "Stock" | "Crypto";
+export type InvestmentType = "Stock" | "Cryptocurrency";
 
 export interface PurchaseType {
     name: string;
