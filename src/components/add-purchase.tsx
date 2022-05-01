@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { ChangeEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
 import { FormValue } from "../types/forms";
+import { InvestmentType } from "../types/global";
+import RadioButtonsComponent from "./forms/radio-buttons";
 import TextInputComponent from "./forms/text-input";
 
 interface AddPurchaseProps {
@@ -25,6 +27,8 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
 
     // State Values
     const [name, setName] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
+
+    const [type, setType] = useState<InvestmentType>("Stock");
 
     const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
 
@@ -53,12 +57,21 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
                 error={name.touched && !name.valid}
                 errorMessage={name.message}
             />
+            <RadioButtonsComponent<InvestmentType> 
+                title="Type"
+                onChange={(event) => setType(event.target.value as InvestmentType)}
+                selectedValue={type}
+                values={[
+                    { value:"Stock", name:"Stock" },
+                    { value:"Crypto", name: "Crypto"},   
+                ]} 
+            />
             <TextInputComponent 
                 label="Code" 
                 value={code.value}
                 onChange={handleCodeChange}
                 type="text"
-                error={code.touched && code.valid}
+                error={code.touched && !code.valid}
                 errorMessage={code.message}
             />
         </AddPurchaseContainer>

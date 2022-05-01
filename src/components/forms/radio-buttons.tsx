@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { RadioGroup, FormControlLabel, Radio, FormControl, FormLabel } from "@mui/material";
-import { FunctionComponent } from "react";
+import { ChangeEvent, FunctionComponent } from "react";
 
 interface RadioButtons<ValueType> {
     value: ValueType;
@@ -10,13 +10,14 @@ interface RadioButtons<ValueType> {
 interface RadioButtonsProps<ValueType> {
     title: string;
     values: RadioButtons<ValueType>[];
-    initialValue?: ValueType;
+    selectedValue: ValueType;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const RadioButtonsComponent = <ValueType,>({ title, values, initialValue } :RadioButtonsProps<ValueType>) => (
+const RadioButtonsComponent = <ValueType,>({ title, values, selectedValue, onChange } :RadioButtonsProps<ValueType>) => (
     <RadioButtonsContainer>
         <div className="title">{title}</div>
-        <RadioGroup defaultValue={initialValue} className="radio-group" row>
+        <RadioGroup value={selectedValue} onChange={onChange} className="radio-group" row>
             {values.map((val) => (
                 <FormControlLabel
                     className="radio-button" 
