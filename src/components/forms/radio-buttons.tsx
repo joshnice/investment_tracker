@@ -20,7 +20,8 @@ const RadioButtonsComponent = <ValueType,>({ title, values, selectedValue, onCha
         <RadioGroup value={selectedValue} onChange={onChange} className="radio-group" row>
             {values.map((val) => (
                 <FormControlLabel
-                    className="radio-button" 
+                    className="radio-button"
+                    key={val.name}
                     value={val.value} 
                     control={<Radio sx={{ color: "#404040", '&.Mui-checked': { color: "#404040"} }} />}
                     label={val.name} 
