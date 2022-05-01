@@ -59,9 +59,9 @@ const PurchaseComponent: FunctionComponent = () => {
     useEffect(() => {
         const getStockPricesAsync = async () => {
             const stockPrices = await getStockPrices(mockPurchases.filter(({ type }) => type === "Stock").map(({ code }) => code ));
-            const cryptoPrices = await getCryptoPrices(mockPurchases.filter(({ type }) => type === "Crypto").map(({ code }) => code));
+            const cryptoPrices = await getCryptoPrices(mockPurchases.filter(({ type }) => type === "Cryptocurrency").map(({ code }) => code));
             const stockInvestments = mockPurchases.filter(({ type }) => type === "Stock" ).map(( investment ) => ({...investment, value: (stockPrices.find(({ code }) => code === investment.code )?.price || 0)}))
-            const cryptoInvestments = mockPurchases.filter(({ type }) => type === "Crypto" ).map(( investment ) => ({...investment, value: (cryptoPrices.find(({ code }) => code === investment.code )?.price || 0)}))
+            const cryptoInvestments = mockPurchases.filter(({ type }) => type === "Cryptocurrency" ).map(( investment ) => ({...investment, value: (cryptoPrices.find(({ code }) => code === investment.code )?.price || 0)}))
             const mappedTableValues = columnDefinitionToValue(purchaseColumnNames, [...stockInvestments, ...cryptoInvestments ]);
             setInvestmentPurchases(mappedTableValues);
         };
