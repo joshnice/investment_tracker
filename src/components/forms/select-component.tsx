@@ -30,7 +30,7 @@ const SelectComponent: FunctionComponent<SelectButtonProps> = ({ title, values, 
 );
 
 const SelectContainer = styled(Box)`
-    margin-top: 10px
+    margin-bottom: 10px;
 `;
 
 export default SelectComponent;
