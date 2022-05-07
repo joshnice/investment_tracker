@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { SelectChangeEvent } from "@mui/material";
-import { ChangeEvent, FunctionComponent, useState } from "react";
+import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
 import { isCryptoCodeValid } from "../APIs/crypto";
 import { isStockValid } from "../APIs/stock";
 import { FormValue } from "../types/forms";
@@ -10,7 +10,8 @@ import SelectComponent from "./forms/select-component";
 import TextInputComponent from "./forms/text-input";
 
 interface AddPurchaseProps {
-
+    setValues: (values: FormValue<string | number | InvestmentType>[]) => void;
+    isValid: (valid: boolean) => void; 
 }
 
 /*
@@ -32,12 +33,12 @@ enum NumberInput {
     PAID = "Paid",
 }
 
-const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
+const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = ({ setValues, isValid }) => {
 
     // State Values
     const [name, setName] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
 
-    const [type, setType] = useState<InvestmentType>("Stock");
+    const [type, setType] = useState<FormValue<InvestmentType>>({ value: "Stock", valid: true, message: "", touched: true });
 
     const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false, loading: false });
 
@@ -62,9 +63,9 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
             clearTimeout(checkValidCode);
         }
         setCheckValidCode(setTimeout(async () => {
-            const valid = type === "Stock" ? await isStockValid(code) : await isCryptoCodeValid(code);
+            const valid = type.value === "Stock" ? await isStockValid(code) : await isCryptoCodeValid(code);
             console.log("valid", valid);
-            const message = valid ? "": `Code is not a valid ${type.toLowerCase()} `;
+            const message = valid ? "": `Code is not a valid ${type.value.toLowerCase()} `;
             setCode({ value: code, valid, message, touched: true, loading: false });
 
         }, 1000));
@@ -76,12 +77,12 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
         setCode({ value, valid: false, message: "Checking...", touched: true, loading: true });
     };
 
-    const handleTypeChange = (type: InvestmentType) => {
+    const handleTypeChange = (newType: InvestmentType) => {
         if (code.touched) {
             setCode({ ...code, message: "Checking...", loading: true });
             checkCodeValid(code.value);
         } 
-        setType(type);
+        setType({ ...type, value: newType});
     }
 
     const handleSourceChange = (event: SelectChangeEvent<string | number>) => {
@@ -107,6 +108,15 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
 
     }
 
+    useEffect(() => {
+        isValid(name.valid && type.valid && code.valid && source.valid && amount.valid && paid.valid)
+    }, [name.valid, type.valid, code.valid, source.valid, amount.valid, paid.valid]);
+
+
+    useEffect(() => {
+        setValues([name, type, code, source, amount, paid])
+    }, [name.value, type.value, code.value, source.value, amount.value, paid.value]);
+
     return (
         <AddPurchaseContainer>
             <TextInputComponent 
@@ -120,7 +130,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
             <RadioButtonsComponent<InvestmentType> 
                 title="Type"
                 onChange={(event) => handleTypeChange(event.target.value as InvestmentType)}
-                selectedValue={type}
+                selectedValue={type.value}
                 values={[
                     { value:"Stock", name:"Stock" },
                     { value:"Cryptocurrency", name: "Crypto"},   

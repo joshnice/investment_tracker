@@ -11,6 +11,8 @@ import { columnDefinitionToValue } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
+import { FormValue } from "../types/forms";
+import { InvestmentType } from "../types/global";
 
 /*
 
@@ -69,6 +71,10 @@ const PurchaseComponent: FunctionComponent = () => {
         getStockPricesAsync();
 
     }, []);
+
+    const handleSetValues = (values: FormValue<string | number | InvestmentType>[]) => {
+        console.log("values", values.map(({ value }) => value ));
+    }
     
     return (
         <PurchaseContainer>
@@ -85,7 +91,7 @@ const PurchaseComponent: FunctionComponent = () => {
                 cancel={() => setShowPurchaseForm(false)}
                 disableSubmit={purchaseFormDisableSubmit}
             >
-                <AddPurchaseComponent />
+                <AddPurchaseComponent isValid={(valid) => setPurchaseFormDisableSubmit(!valid)} setValues={handleSetValues}/>
             </FormComponent>
         </PurchaseContainer>
     )
