@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { CircularProgress, TextField } from "@mui/material";
+import { CircularProgress, InputAdornment, TextField } from "@mui/material";
 import { ChangeEvent, FunctionComponent } from "react";
 
 interface TextInputProps {
@@ -22,6 +22,9 @@ const TextInputComponent: FunctionComponent<TextInputProps> = ({ label, value, e
             type={type}
             value={value}
             error={error && !loading}
+            InputProps={{
+                startAdornment: label === "Paid" && <InputAdornment position="start">$</InputAdornment>,
+              }}
             autoComplete="off"
             fullWidth
         />
