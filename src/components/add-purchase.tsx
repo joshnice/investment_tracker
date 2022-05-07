@@ -27,6 +27,11 @@ Paid - Input (number)
 
 */
 
+enum NumberInput {
+    AMOUNT = "Amount",
+    PAID = "Paid",
+}
+
 const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
 
     // State Values
@@ -37,6 +42,10 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
     const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false, loading: false });
 
     const [source, setSource] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
+
+    const [amount, setAmount] = useState<FormValue<number | string>>({ value: 0, valid: false, message: "", touched: false });
+
+    const [paid, setPaid] = useState<FormValue<number | string>>({ value: 0, valid: false, message: "", touched: false });    
 
     // Handlers
     const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -80,6 +89,24 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
         setSource({ value: value, valid: value != "", touched: false, message: "" })
     }
 
+    const handleNumberChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, inputType: NumberInput) => {
+        const { value } = event.target;
+        let valid = value != "" && value.length > 0;
+        let message = valid ? "": `${inputType.toString()} has to be a value`;
+        const parsedValue = parseFloat(value);
+        if (parsedValue === NaN) {
+            valid = false;
+            message = "Input a valid number"
+        }
+
+        if (inputType === NumberInput.AMOUNT) {
+            setAmount({ value: valid ? parsedValue : value, valid, message, touched: true }); 
+        } else if (inputType === NumberInput.PAID) {
+            setPaid({ value: valid ? parsedValue : value, valid, message, touched: true });
+        }
+
+    }
+
     return (
         <AddPurchaseContainer>
             <TextInputComponent 
@@ -117,6 +144,22 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = () => {
                     { value:"Gemini", name: "Gemini"},
                 ]} 
                 onChange={handleSourceChange}
+            />
+            <TextInputComponent 
+                label="Amount" 
+                value={amount.value.toString()}
+                onChange={(event) => handleNumberChange(event, NumberInput.AMOUNT)}
+                type="number"
+                error={amount.touched && !amount.valid}
+                errorMessage={amount.message}
+            />
+            <TextInputComponent 
+                label="Paid" 
+                value={paid.value.toString()}
+                onChange={(event) => handleNumberChange(event, NumberInput.PAID)}
+                type="number"
+                error={paid.touched && !paid.valid}
+                errorMessage={paid.message}
             />
         </AddPurchaseContainer>
     );
