@@ -7,7 +7,7 @@ import AddPurchaseComponent from "../components/add-purchase";
 import DataTableComponent from "../components/data-table";
 import FormComponent from "../components/forms/form-component";
 import HomeButton from "../components/home-button";
-import { columnDefinitionToValue } from "../helper/data-table-helpers";
+import { columnDefinitionToValue, purchaseFormToPurchaseType } from "../helper/data-table-helpers";
 import { mockPurchases } from "../mock_data/mock_data";
 import { HomeButtonContainer } from "../styles/home-button-container";
 import { ColumnType, PurchaseTableType } from "../types/data-table-types";
@@ -50,10 +50,14 @@ const PurchaseComponent: FunctionComponent = () => {
 
     const [purchaseFormDisableSubmit, setPurchaseFormDisableSubmit] = useState<boolean>(true);
 
+    const [formValues, setFormValues] = useState<FormValue<string | number | InvestmentType>[]>([]);
+
     // Handlers
 
     const handleSavePurchase = () => {
         // Save the new purchase
+        const purchaseType = purchaseFormToPurchaseType(formValues);
+        console.log("purchaseType", purchaseType);
         setShowPurchaseForm(false);
     }
 
@@ -73,7 +77,7 @@ const PurchaseComponent: FunctionComponent = () => {
     }, []);
 
     const handleSetValues = (values: FormValue<string | number | InvestmentType>[]) => {
-        console.log("values", values.map(({ value }) => value ));
+        setFormValues(values);
     }
     
     return (
@@ -91,7 +95,7 @@ const PurchaseComponent: FunctionComponent = () => {
                 cancel={() => setShowPurchaseForm(false)}
                 disableSubmit={purchaseFormDisableSubmit}
             >
-                <AddPurchaseComponent isValid={(valid) => setPurchaseFormDisableSubmit(!valid)} setValues={handleSetValues}/>
+                <AddPurchaseComponent isValid={(valid) => setPurchaseFormDisableSubmit(!valid)} setValues={setFormValues}/>
             </FormComponent>
         </PurchaseContainer>
     )

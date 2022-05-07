@@ -36,24 +36,24 @@ enum NumberInput {
 const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = ({ setValues, isValid }) => {
 
     // State Values
-    const [name, setName] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
+    const [name, setName] = useState<FormValue<string>>({ id: "name", value: "", valid: false, message: "", touched: false });
 
-    const [type, setType] = useState<FormValue<InvestmentType>>({ value: "Stock", valid: true, message: "", touched: true });
+    const [type, setType] = useState<FormValue<InvestmentType>>({ id: "class",  value: "Stock", valid: true, message: "", touched: true });
 
-    const [code, setCode] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false, loading: false });
+    const [code, setCode] = useState<FormValue<string>>({ id: "code", value: "", valid: false, message: "", touched: false, loading: false });
 
-    const [source, setSource] = useState<FormValue<string>>({ value: "", valid: false, message: "", touched: false });
+    const [source, setSource] = useState<FormValue<string>>({ id: "source", value: "", valid: false, message: "", touched: false });
 
-    const [amount, setAmount] = useState<FormValue<number | string>>({ value: 0, valid: false, message: "", touched: false });
+    const [amount, setAmount] = useState<FormValue<number | string>>({ id: "amount", value: 0, valid: false, message: "", touched: false });
 
-    const [paid, setPaid] = useState<FormValue<number | string>>({ value: 0, valid: false, message: "", touched: false });    
+    const [paid, setPaid] = useState<FormValue<number | string>>({ id: "paid", value: 0, valid: false, message: "", touched: false });    
 
     // Handlers
     const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { value } = event.target;
         const valid = value != "" && value.length > 3;
         const message = valid ? "": "Name has to be longer than 3 letters";
-        setName({ value, valid, message, touched: true });
+        setName({ id: "name", value, valid, message, touched: true });
     };
 
     const [checkValidCode, setCheckValidCode] = useState<NodeJS.Timeout | null>(null);
@@ -66,7 +66,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = ({ setValues, 
             const valid = type.value === "Stock" ? await isStockValid(code) : await isCryptoCodeValid(code);
             console.log("valid", valid);
             const message = valid ? "": `Code is not a valid ${type.value.toLowerCase()} `;
-            setCode({ value: code, valid, message, touched: true, loading: false });
+            setCode({ id: "code", value: code, valid, message, touched: true, loading: false });
 
         }, 1000));
     }
@@ -74,7 +74,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = ({ setValues, 
     const handleCodeChange = async (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { value } = event.target;
         checkCodeValid(value);
-        setCode({ value, valid: false, message: "Checking...", touched: true, loading: true });
+        setCode({ id: "code", value, valid: false, message: "Checking...", touched: true, loading: true });
     };
 
     const handleTypeChange = (newType: InvestmentType) => {
@@ -87,7 +87,7 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = ({ setValues, 
 
     const handleSourceChange = (event: SelectChangeEvent<string | number>) => {
         const value = event.target.value as string;
-        setSource({ value: value, valid: value != "", touched: false, message: "" })
+        setSource({ id: "source", value: value, valid: value != "", touched: false, message: "" })
     }
 
     const handleNumberChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, inputType: NumberInput) => {
@@ -101,9 +101,9 @@ const AddPurchaseComponent: FunctionComponent<AddPurchaseProps> = ({ setValues, 
         }
 
         if (inputType === NumberInput.AMOUNT) {
-            setAmount({ value: valid ? parsedValue : value, valid, message, touched: true }); 
+            setAmount({ id: "amount", value: valid ? parsedValue : value, valid, message, touched: true }); 
         } else if (inputType === NumberInput.PAID) {
-            setPaid({ value: valid ? parsedValue : value, valid, message, touched: true });
+            setPaid({ id: "paid", value: valid ? parsedValue : value, valid, message, touched: true });
         }
 
     }
